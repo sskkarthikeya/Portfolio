@@ -178,7 +178,7 @@
       border: 1.7px solid #77f7ffc3;
       outline: 2px solid #08edff4a;
     }
-    .contact-popup {  width:fit-content; background:#fff; border-radius:10px; box-shadow:0 4px 17px #32d9f81b; margin:11px 0 0 0; padding:15px 13px; display:none; text-align:center; font-size:1.18em;}
+    .contact-popup {  width:fit-content; background:#fff; border-radius:10px; box-shadow:0 4px 17px #32d9f81b; margin:11px 0 0 0; padding:15px 13px; display:none; text-align:center; font-size:1.18em;}
     body.night .contact-popup {background:#233153; color:#aeeaff;}
     .contact-popup.show {display:block;}
     .footer {background: linear-gradient(90deg,#18aeff,#5ce7f7);color:#fff; text-align:center; padding:15px 0 17px 0;font-size:1.19em; border-radius:0 0 10px 10px; margin-top:38px;}
@@ -203,37 +203,38 @@
       .project-card,.cert-card,.skill-category{padding: 7vw 3vw;}
       main{padding:0;}
     }
+    /* MOBILE FRIENDLY SIZES */
     @media (max-width: 720px) {
-  body {
-    font-size: 0.9em;
-  }
-  #hero .name {
-    font-size: 1.5em !important;
-  }
-  #hero .objective {
-    font-size: 1.0em !important;
-  }
-  .skill-category, .project-card, .cert-card {
-    font-size: 0.9em !important;
-    padding: 10px !important;
-  }
-  .skill-category {
-    min-width: unset !important;
-    width: 90% !important;
-  }
-  .project-card {
-    width: 90% !important;
-    margin: 0 auto 15px;
-  }
-  .cert-card {
-    width: 90% !important;
-    margin: 0 auto 15px;
-  }
-  .contact-btn {
-    font-size: 0.9em !important;
-    padding: 8px 14px !important;
-  }
-}
+      body {
+        font-size: 0.9em !important;
+      }
+      #hero .name {
+        font-size: 1.3em !important;
+      }
+      #hero .objective {
+        font-size: 1em !important;
+      }
+      .skill-category, .project-card, .cert-card {
+        font-size: 0.9em !important;
+        padding: 6px !important;
+      }
+      .skill-category {
+        min-width: unset !important;
+        width: 100% !important;
+      }
+      .project-card {
+        width: 100% !important;
+        margin: 0 auto 15px !important;
+      }
+      .cert-card {
+        width: 100% !important;
+        margin: 0 auto 15px !important;
+      }
+      .contact-btn {
+        font-size: 0.9em !important;
+        padding: 8px 12px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -364,4 +365,3 @@
   </script>
 </body>
 </html>
-

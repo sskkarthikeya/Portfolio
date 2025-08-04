@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SSK Karthikeya | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Nunito:400,700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(120deg,#e2f3ff 10%,#a0dfff 100%);
+      color: #273e59;
+      font-family: 'Nunito','Montserrat',Arial,sans-serif;
+      transition: background 0.7s, color 0.7s;
+      overflow-x: hidden;
+      font-size: 1.23em;
+    }
+    body.night {
+      background: #14213e;
+      color: #d6ecfc;
+    }
+    .switch-wrap {
+      position: fixed; top: 22px; right: 22px; z-index: 1002;
+      display: flex; align-items: center; user-select: none;
+    }
+    .switch { position: relative; display: inline-block; width: 56px; height: 30px; }
+    .switch input { opacity: 0; width: 0; height: 0;}
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, #b0f0ff 10%, #016aff 85%);
+      border-radius: 34px;
+      transition: background 0.6s;
+      box-shadow: 0 2px 14px #2ee3ff44;
+    }
+    .slider:before {
+      position: absolute; content: "";
+      height: 26px; width: 26px; left: 2px; bottom: 2px;
+      background-color: #fff; border-radius: 50%;
+      transition: transform .6s, box-shadow .6s;
+      box-shadow: 0 2px 10px #62d3ff71;
+    }
+    input:checked + .slider {
+      background: linear-gradient(90deg, #1783c8 10%, #0a192c 90%);
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+      box-shadow: 0 2px 12px #0bc0fecc;
+    }
+    .slider .icon {
+      position: absolute; top: 4px; font-size: 1.4em; z-index: 2;
+      color: #ffb300; pointer-events: none; left: 10px; transition: opacity 0.35s;
+    }
+    .slider .moon { right: 11px; left: unset; color: #fff45c;}
+    .slider .moon { opacity: 1; }
+    input:checked + .slider .moon { opacity: 0; }
+    .slider .sun { opacity: 0; }
+    input:checked + .slider .sun { opacity: 1; color: #ffeb3b; left: 15px;}
+    #intro-wrap {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; justify-content: center; align-items: center;
+      background: #daf6ff; transition: opacity 0.8s;
+    }
+    body.night #intro-wrap { background: #071622; }
+    #intro-wrap.hide { opacity: 0; pointer-events: none;}
+    #intro-wrap lottie-player { width: 270px; height: 300px; margin:0 auto; display:block;}
+    #hero {
+      display: none; min-height: 100vh; width: 100vw;
+      text-align: center;
+      padding: 120px 0 0 0;
+      margin-bottom: 0;
+    }
+    #hero .profile-img {
+      width: 148px; height: 148px; border-radius: 50%; object-fit: cover;
+      box-shadow: 0 4px 29px #bfeaff2d;
+      border: 5px solid #2ecbff;
+      margin-bottom: 14px;
+      background: #fafcff;
+    }
+    #hero .name {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.38rem;
+      font-weight: 900;
+      margin: 0 0 12px 0;
+      color: #2292e3;
+      text-shadow: 0 3px 14px #fff, 0 0 8px #17edff53;
+      letter-spacing:1.3px; background: none;
+      transition: color 0.7s;
+    }
+    body.night #hero .name {
+      color: #fff;
+      text-shadow: 0 5px 19px #18365155, 0 0 13px #00c3ff60;
+    }
+    #hero .objective {
+      font-size: 1.16em;
+      font-weight: 600;
+      color: #155b8c;
+      background: none;
+      box-shadow: none;
+      margin-bottom: 28px;
+      margin-top: 5px;
+      padding: 0;
+      display: block;
+      line-height: 1.51;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.night #hero .objective {
+      color: #d0ecff; background: none;
+    }
+    main { max-width: 1100px; margin: 0 auto; padding:8px 7vw; }
+    section {
+      margin-top: 54px !important;
+      margin-bottom: 54px !important;
+      padding: 50px 17px 40px 17px;
+      background: #fafdff;
+      border-radius: 22px;
+      box-shadow: 0 5px 22px #b5eaff2a;
+      font-size: 1.14em;
+      transition: background 0.7s, color 0.7s, box-shadow 0.34s;
+    }
+    body.night section {
+      background: #183053; color: #e6f7ff;
+      box-shadow: 0 7px 27px #3ad6ff41;
+    }
+    section h2 {
+      font-family: 'Montserrat',sans-serif;
+      font-size: 1.38em; font-weight:900; text-align:left;
+      margin:0 0 25px 0; color:#146497; letter-spacing:0.25em;
+    }
+    body.night section h2 { color: #74cafd; }
+    .skills-flex {
+      display: flex; flex-wrap: wrap; gap: 36px 42px; justify-content: space-between;
+    }
+    .skill-category {
+      background: #fff; color: #28688f; border-radius:17px;
+      box-shadow: 0 3px 13px #8ae9ff0d; padding:16px 20px 26px 20px;min-width:165px; font-size:1.13em; flex: 1 1 240px;transition:.14s;outline: none;
+    }
+    .skill-category:hover, .skill-category:focus, .project-card:hover, .cert-card:hover, .contact-btn:focus, .contact-btn:hover {
+      background: #e5faff; box-shadow: 0 7px 23px #5ad3ffe2, 0 0 10px #7aefff91; border: 1.4px solid #43e2ff;
+    }
+    body.night .skill-category:hover, body.night .skill-category:focus {
+      background: #244267; color: #eeffff; border-color: #38eaff;
+    }
+    .skill-category b {font-size:1.21em; font-family:'Montserrat'; display:block; margin-bottom:10px;}
+    .skill-list {list-style: none; padding: 0; margin: 0;}
+    .skill-list li {display: flex; align-items: center; gap: 13px; font-weight:600; margin-bottom:13px; font-size: 1.09em;}
+    .skill-list img {width:23px;height:23px;}
+    .project-card {
+      background: #e7f7fe; border-radius:14px; padding:28px 20px 13px 20px; color:#1082c3;
+      font-size:1.13em; line-height:1.6;margin-bottom:12px;box-shadow:0 3px 13px #46caff49;transition:.13s;outline:none;
+    }
+    .project-card:focus, .project-card:hover { background:#dbf7ff;}
+    body.night .project-card { background:#1d3557; color:#cbf0ff;}
+    .badges { margin-bottom:13px;}
+    .badge {background: #12befc; color:#fff; font-size:1.08em; border-radius:9px; padding:7px 18px;font-weight:700;margin-right:11px;}
+    .cert-flex {display:flex; flex-wrap:wrap; gap: 22px 28px; justify-content: space-around;}
+    .cert-card {
+      background:#fff; border-radius:14px; box-shadow:0 2px 13px #43cbff2b;
+      padding:20px 18px; width:180px; color:#126893; font-size:1.14em;transition:.16s; outline:none;
+    }
+    .cert-card:focus, .cert-card:hover { background: #daf6ff; }
+    body.night .cert-card { background:#213864; color:#d8faff;}
+    .cert-title { font-weight:900; font-size:1.13em; margin-bottom:6px;}
+    .contact-center {display:flex;justify-content:center;margin-top:24px;}
+    .contact-btn {
+      background: linear-gradient(90deg,#06e7ff 0,#037dff 100%);
+      font-size: 1.2em; padding: 17px 50px;border-radius:17px;
+      color: #fff; border:none; font-weight:900; box-shadow:0 2px 17px #17c6fd17; margin-top:1vw; outline:none; cursor:pointer; transition:.13s;
+    }
+    .contact-btn:focus, .contact-btn:hover {
+      background: linear-gradient(90deg,#4be8ff 0,#3c76ef 95%);
+      color: #fff;
+      box-shadow: 0 8px 21px #0ff3ffd1;
+      border: 1.7px solid #77f7ffc3;
+      outline: 2px solid #08edff4a;
+    }
+    .contact-popup {  width:fit-content; background:#fff; border-radius:10px; box-shadow:0 4px 17px #32d9f81b; margin:11px 0 0 0; padding:15px 13px; display:none; text-align:center; font-size:1.18em;}
+    body.night .contact-popup {background:#233153; color:#aeeaff;}
+    .contact-popup.show {display:block;}
+    .footer {background: linear-gradient(90deg,#18aeff,#5ce7f7);color:#fff; text-align:center; padding:15px 0 17px 0;font-size:1.19em; border-radius:0 0 10px 10px; margin-top:38px;}
+    body.night .footer{background: linear-gradient(90deg,#052439,#2181cb);}
+    a { color:#12a7fc; text-decoration:none;}
+    a:hover {text-decoration:underline;}
+    main section:first-of-type {
+      margin-top: 54px !important;
+      padding-bottom: 30px !important;
+    }
+    @media (max-width: 900px) {
+      main {padding:0 4vw;}
+      .skills-flex{flex-direction:column;}
+      .skill-category{width:98%;margin:auto;}
+      .project-card{width:97%;margin:12px auto;}
+      .cert-flex{flex-direction:column;gap:16px;}
+      .cert-card{width:97%;margin:auto;}
+    }
+    @media (max-width:430px){
+      #hero .profile-img{width:72px;height:72px;}
+      #hero .name{font-size:1.32rem;}
+      .project-card,.cert-card,.skill-category{padding: 7vw 3vw;}
+      main{padding:0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="switch-wrap">
+    <label class="switch">
+      <input type="checkbox" id="nightSwitch" aria-label="Toggle Night/Day">
+      <span class="slider">
+        <span class="icon moon">🌙</span>
+        <span class="icon sun">☀️</span>
+      </span>
+    </label>
+  </div>
+  <div id="intro-wrap">
+    <lottie-player id="robotLottie" src="Robot-avatar-hello.json" background="transparent" speed="1" autoplay></lottie-player>
+  </div>
+  <div id="hero" style="display:none;">
+    <img class="profile-img" src="My-Profile.jpg" alt="Profile Image"/>
+    <span class="name">SSK KARTHIKEYA</span>
+    <div class="objective">
+      BTech Computer Science and Engineering student passionate about software development, cloud, and solving real-world problems. Always eager to learn new technologies and contribute with practical, creative solutions.
+    </div>
+  </div>
+  <main>
+    <section id="skills" tabindex="0">
+      <h2>Skills &amp; Technologies</h2>
+      <div class="skills-flex">
+        <div class="skill-category" tabIndex="0">
+          <b>Programming</b>
+          <ul class="skill-list">
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/java.svg" alt="Java"/> Java</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg" alt="Python"/> Python</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/php.svg" alt="PHP"/> PHP</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mysql.svg" alt="SQL"/> SQL</li>
+          </ul>
+        </div>
+        <div class="skill-category" tabIndex="0">
+          <b>Web &amp; Cloud</b>
+          <ul class="skill-list">
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazonaws.svg" alt="AWS"/> Basics of AWS Services</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/php.svg" alt="PHP"/> PHP (Backend)</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mysql.svg" alt="SQL"/> SQL (Database)</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/terraform.svg" alt="IaC"/> Infrastructure as Code (IaC)</li>
+          </ul>
+        </div>
+        <div class="skill-category" tabIndex="0">
+          <b>AI Tools &amp; IDEs</b>
+          <ul class="skill-list">
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/openai.svg" alt="ChatGPT"/> ChatGPT</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googlecloud.svg" alt="Gemini"/> Gemini AI</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/visualstudiocode.svg" alt="VS Code"/> VS Code</li>
+            <li><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/eclipseide.svg" alt="Eclipse"/> Eclipse</li>
+          </ul>
+        </div>
+        <div class="skill-category" tabIndex="0">
+          <b>Soft Skills</b>
+          <ul class="skill-list">
+            <li>🗣️ Communication</li>
+            <li>⚡ Quick Adapting</li>
+            <li>🤝 Teamwork</li>
+            <li>👑 Leadership</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="project" tabindex="0">
+      <h2>Project</h2>
+      <div class="project-card" tabIndex="0">
+        <h3>ERP Website for Paper Industry</h3>
+        <div class="badges">
+          <span class="badge">PHP</span>
+          <span class="badge">SQL</span>
+        </div>
+        <p>
+          Designed and built an enterprise-grade ERP website tailored for a paper manufacturing company. The platform streamlines key business operations including inventory management, order processing, purchase logs, staff oversight, and analytics. Backend logic is developed with PHP and SQL, providing fast, secure, and role-based data management. User dashboards, real-time reports, and automation improve productivity and decision-making.
+        </p>
+      </div>
+    </section>
+    <section id="certifications" tabindex="0">
+      <h2>Certifications &amp; Awards</h2>
+      <div class="cert-flex">
+        <div class="cert-card" tabIndex="0"><div class="cert-title">Programming In Java</div><div class="cert-org">NPTEL SWAYAM</div><div class="cert-date">Jan–Apr 2024</div></div>
+        <div class="cert-card" tabIndex="0"><div class="cert-title">Prompt Engineering &amp; Advanced ChatGPT</div><div class="cert-org">EDX</div><div class="cert-date">June 2024</div></div>
+        <div class="cert-card" tabIndex="0"><div class="cert-title">Salesforce Administrator</div><div class="cert-org">SmartInternz</div><div class="cert-date">Aug–Oct 2023</div></div>
+        <div class="cert-card" tabIndex="0"><div class="cert-title">Project Presentation (2nd Place)</div><div class="cert-org">Ideal Institute of Technology</div><div class="cert-date">2023</div></div>
+      </div>
+    </section>
+    <section id="contact" tabindex="0">
+      <div class="contact-center">
+        <button class="contact-btn" onclick="toggleContact()" tabIndex="0">Contact Me</button>
+      </div>
+      <div class="contact-popup" id="contact-popup">
+        <p><b>Email:</b> sskkarthikeya480@gmail.com</p>
+        <p><b>Phone:</b> 9704800363</p>
+        <p>
+          <a href="https://linkedin.com/in/karthikeya-ssk-803186285/" target="_blank" rel="noopener">LinkedIn</a> |
+          <a href="https://github.com/sskkarthikeya" target="_blank" rel="noopener">GitHub</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <div class="footer">&copy; 2025 SSK Karthikeya · Portfolio</div>
+  <script>
+    document.getElementById('robotLottie').addEventListener('complete', function() {
+      document.getElementById('intro-wrap').classList.add('hide');
+      setTimeout(function() {
+        document.getElementById('intro-wrap').style.display='none';
+        document.getElementById('hero').style.display = 'block';
+        revealSections();
+      }, 420);
+    });
+    function revealSections() {
+      const sections = document.querySelectorAll('main section');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+        });
+      }, { threshold: 0.15 });
+      sections.forEach(s => observer.observe(s));
+    }
+    function toggleContact() {
+      const p = document.getElementById('contact-popup');
+      if(p.classList.contains('show')){ p.classList.remove('show'); }
+      else { p.classList.add('show'); p.scrollIntoView({behavior:'smooth', block:'center'});}
+    }
+    document.getElementById('nightSwitch').addEventListener('change', function() {
+      document.body.classList.toggle('night', this.checked);
+    });
+  </script>
+</body>
+</html>
